@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Welcome from './Welcome'
+import Clock from './Clock'
+import List from './List'
 import logo from './logo.svg';
 import './App.css';
 
@@ -20,6 +23,10 @@ class App extends Component {
             Learn React
           </a>
         </header>
+        <Welcome>World</Welcome>
+        <hr/>
+        <Clock />
+        <List />
       </div>
     );
   }
