@@ -1,23 +1,16 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import Sidebar from './Sidebar'
-import ChatHeader from './ChatHeader'
-import Chat from './Chat'
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+import WelcomePage from './WelcomePage'
+import ChatPage from './ChatPage'
 
-import { chats, messages } from '../mock-data'
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-  }
-})
-
-const App = ({ classes }) => (
-  <div className={classes.root}>
-    <ChatHeader />
-    <Sidebar chats={chats} />
-    <Chat messages={messages} />
-  </div>
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/(welcome)?" component={WelcomePage}></Route>
+      <Route path="/chat" component={ChatPage}></Route>
+      <Redirect to="/" />
+    </Switch>
+  </Router>
 )
 
-export default withStyles(styles)(App)
+export default App
