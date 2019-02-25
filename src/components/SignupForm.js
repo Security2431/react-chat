@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import fetch from 'isomorphic-fetch'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -58,23 +57,8 @@ class SignupForm extends Component {
     }
 
     const {username, password } = this.state
-
-    console.log(`Login: ${username.value}; \nPassword: ${password.value}`)
-
-    fetch('http://localhost:8000/v1/signup', {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value
-      }),
-    })
-      .then(response => response.json())
-      .then(json => console.log(json))
-      .catch(reason => console.error(reason))
+    
+    this.props.onSubmit(username.value, password.value)
   }
 
   render() {
