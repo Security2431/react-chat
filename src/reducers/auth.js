@@ -8,7 +8,7 @@ const initialState = {
   token,
 }
 
-export function auth(state = initialState, action) {
+export default function auth(state = initialState, action) {
   switch (action.type) {
     case types.SIGNUP_SUCCESS:
     case types.LOGIN_SUCCESS:
