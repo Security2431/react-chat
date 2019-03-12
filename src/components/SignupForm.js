@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
@@ -9,7 +9,7 @@ const styles = theme => ({
   }
 })
 
-class SignupForm extends Component {
+class SignupForm extends React.Component {
   state = {
     username: {
       value: '',
@@ -56,7 +56,7 @@ class SignupForm extends Component {
       return
     }
 
-    const {username, password } = this.state
+    const { username, password } = this.state
     
     this.props.onSubmit(username.value, password.value)
   }
@@ -113,7 +113,7 @@ class SignupForm extends Component {
           color="primary"
           className={classes.signUpButton}
         >
-          Sign up
+          Signup
         </Button>
       </form>
 

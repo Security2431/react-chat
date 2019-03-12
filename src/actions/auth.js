@@ -63,10 +63,26 @@ export function login(username, password) {
 }
 
 export function logout() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({
       type: types.LOGOUT_REQUEST
     })
+
+    return callApi('/logout')
+      .then(json => {
+        // Remove JWT from localStorage
+        localStorage.removeItem('token')
+
+        // Redirect to welcome in case of failure
+        dispatch({
+          type: types.LOGOUT_SUCCESS,
+          payload: json
+        })
+      })
+      .catch(reason => dispatch({
+        type: types.LOGOUT_FAILURE,
+        payload: reason,
+      }))
   }
 }
 
@@ -74,12 +90,10 @@ export function recieveAuth() {
   return (dispatch, getState) => {
     const { token } = getState().auth
 
-    if (!token) {
-      dispatch({
-        type: types.RECIEVE_AUTH_FAILURE
-      })
-    }
-
+    dispatch({
+      type: types.RECIEVE_AUTH_REQUEST
+    })
+    
     return callApi('/users/me', token)
       .then(json => dispatch({
         type: types.RECIEVE_AUTH_SUCCESS,

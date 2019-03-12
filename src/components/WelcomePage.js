@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -21,9 +21,13 @@ const styles = theme => ({
   }
 })
 
-class WelcomePage extends Component {
+class WelcomePage extends React.Component {
   state = {
     activeTab: 0
+  }
+
+  componentDidMount() {
+    this.props.recieveAuth()
   }
 
   handleTabChange = (event, value) => {
@@ -59,7 +63,7 @@ class WelcomePage extends Component {
                   variant="fullWidth"
                 >
                   <Tab label="Login" />
-                  <Tab label="Sign up" />
+                  <Tab label="Sign Up" />
                 </Tabs>
               </AppBar>
               <div className={classes.tabContent}>

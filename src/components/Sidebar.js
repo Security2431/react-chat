@@ -5,14 +5,15 @@ import Divider from '@material-ui/core/Divider'
 import TextField from '@material-ui/core/TextField'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import ChatList from './ChatList'
+import NewChatButton from './NewChatButton'
 import RestoreIcon from '@material-ui/icons/Restore'
 import ExploreIcon from '@material-ui/icons/Explore'
-import ChatList from './ChatList'
 
 const styles = theme => ({
   drawerPaper: {
     position: 'relative',
-    height: '100vh',
+    height: '100%',
     width: 320,
   },
   drawerHeader: {
@@ -22,27 +23,74 @@ const styles = theme => ({
   }
 })
 
-const Sidebar = ({ classes, chats }) => (
-  <Drawer
-    variant="permanent"
-    classes={{
-      paper: classes.drawerPaper
-    }}
-  >
-    <div className={classes.drawerHeader}>
-      <TextField
-        fullWidth
-        margin="normal"
-        placeholder="Search chats..."
-      />
-    </div>
-    <Divider />
-    <ChatList chats={chats} />
-    <BottomNavigation showLabels>
-      <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
-    </BottomNavigation>
-  </Drawer>
-)
+class Sidebar extends React.Component {
+  state = {
+    searchValue: '',
+    activeTab: 0,
+  }
+
+  handleSearchChange = (event) => {
+    this.setState({
+      searchValue: event.target.value
+    })
+  }
+
+  handleTabChange = (event, value) => {
+    this.setState({
+      activeTab: value,
+    })
+  }
+
+  filterChats = (chats) => {
+    const { searchValue } = this.state
+
+    return chats
+      .filter(chat => chat.title
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+      )
+      .sort((one, two) => 
+        one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1
+      )
+  }
+
+  render() {
+    const { classes, chats, createChat } = this.props
+    const { activeTab, searchValue } = this.state
+
+    return (
+      <Drawer
+        variant="permanent"
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <TextField
+            fullWidth
+            margin="normal"
+            placeholder="Search chats..."
+            value={searchValue}
+            onChange={this.handleSearchChange}
+          />
+        </div>
+        <Divider />
+        <ChatList 
+          chats={this.filterChats(activeTab === 0 ? chats.my : chats.all)} 
+          activeChat={chats.active}
+        />
+        <NewChatButton onClick={createChat} />
+        <BottomNavigation 
+          value={activeTab}
+          onChange={this.handleTabChange}
+          showLabels
+        >
+          <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
+        </BottomNavigation>
+      </Drawer>
+    )
+  }
+}
 
 export default withStyles(styles)(Sidebar)
