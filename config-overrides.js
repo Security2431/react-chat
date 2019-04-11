@@ -1,8 +1,7 @@
-import { compose } from 'react-app-rewired'
-import rewireEslint from 'react-app-rewired-eslint'
-import rewirePolyfills from 'react-app-rewired-polyfills'
+const rewireEslint = require('react-app-rewire-eslint')
+const rewirePolyfills = require('react-app-rewire-polyfills')
 
-module.exports = compose(
+module.exports = {
   rewirePolyfills,
-  rewireEslint
-)
+  rewireEslint,
+}
