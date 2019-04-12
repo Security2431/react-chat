@@ -5,9 +5,9 @@ export default function titleInitials(title) {
       .map(word => word[0])
       .map(char => char.toUpperCase())
       .slice(0, 2)
-      .join('');
+      .join('')
   } catch (e) {
-    console.error(e);
-    return '🐶';
+    console.error(e)
+    return '🐶'
   }
 }

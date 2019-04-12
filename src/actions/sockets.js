@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import SocketIOClient from 'socket.io-client'
 import * as types from '../constants/sockets'
 import { redirect } from './services'
@@ -6,7 +7,7 @@ import { redirect } from './services'
 export function missingSocketConnection() {
   return {
     types: types.SOCKETS_CONNECTION_MISSING,
-    payload: new Error('Missing connection')
+    payload: new Error('Missing connection'),
   }
 }
 
@@ -32,7 +33,7 @@ export function socketsConnect() {
 
     socket.on('connect', () => {
       dispatch({
-        type: types.SOCKETS_CONNECTION_SUCCESS
+        type: types.SOCKETS_CONNECTION_SUCCESS,
       })
     })
 
@@ -42,11 +43,11 @@ export function socketsConnect() {
         payload: new Error(`Connection ${error}`),
       })
     })
-    
+
     socket.on('connect_error', () => {
       dispatch({
         type: types.SOCKETS_CONNECTION_FAILURE,
-        payload: new Error('We have lost a connection :(')
+        payload: new Error('We have lost a connection :('),
       })
     })
 
@@ -60,7 +61,7 @@ export function socketsConnect() {
     socket.on('new-chat', ({ chat }) => {
       dispatch({
         type: types.RECIEVE_NEW_CHAT,
-        payload: chat
+        payload: chat,
       })
     })
 
@@ -77,7 +78,7 @@ export function socketsConnect() {
       }
     })
 
-
+    return Promise.resolve()
   }
 }
 
@@ -98,15 +99,14 @@ export function sendMessage(content) {
         payload: {
           chatId: activeId,
           content,
-        }
+        },
       })
     })
-
   }
 }
 
 export function mountChat(chatId) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if (!socket) {
       dispatch(missingSocketConnection())
     }
@@ -121,7 +121,7 @@ export function mountChat(chatId) {
 }
 
 export function unmountChat(chatId) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if (!socket) {
       dispatch(missingSocketConnection())
     }

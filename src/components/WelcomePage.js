@@ -15,19 +15,20 @@ import ErrorMessage from './ErrorMessage'
 const styles = theme => ({
   paper: {
     marginTop: 64 + theme.spacing.unit * 3,
-    width: 500
+    width: 500,
   },
   tabContent: {
-    padding: theme.spacing.unit * 3
-  }
+    padding: theme.spacing.unit * 3,
+  },
 })
 
 class WelcomePage extends React.Component {
   state = {
-    activeTab: 0
+    activeTab: 0,
   }
 
   componentDidMount() {
+    // eslint-disable-next-line
     this.props.recieveAuth()
   }
 
@@ -36,21 +37,23 @@ class WelcomePage extends React.Component {
   }
 
   render() {
-    const { classes, signup, login, isAuthenticated, error } = this.props
+    const {
+      classes, signup, login, isAuthenticated, error,
+    } = this.props
     const { activeTab } = this.state
 
     if (isAuthenticated) {
       return (
         <Redirect to="/chat" />
-      ) 
+      )
     }
 
     return (
-      <>
+      <React.Fragment>
         <AppBar>
           <Toolbar>
             <Typography variant="title" color="inherit" style={{ flex: 1 }}>
-              DogeCodes React Chat
+            DogeCodes React Chat
             </Typography>
           </Toolbar>
         </AppBar>
@@ -75,7 +78,7 @@ class WelcomePage extends React.Component {
           </Grid>
         </Grid>
         <ErrorMessage error={error} />
-      </>
+      </React.Fragment>
     )
   }
 }

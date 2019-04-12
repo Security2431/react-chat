@@ -5,31 +5,31 @@ import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
   signUpButton: {
-    marginTop: theme.spacing.unit * 2
-  }
+    marginTop: theme.spacing.unit * 2,
+  },
 })
 
 class LoginForm extends React.Component {
   state = {
     username: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     password: {
       value: '',
-      isValid: true
-    }
+      isValid: true,
+    },
   }
 
   handleInputChange = (event) => {
     event.persist()
     const { name, value } = event.target
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
-        value
-      }
+        value,
+      },
     }))
   }
 
@@ -37,7 +37,7 @@ class LoginForm extends React.Component {
     event.preventDefault()
 
     const { username, password } = this.state
-
+    // eslint-disable-next-line
     this.props.onSubmit(username.value, password.value)
   }
 
@@ -47,7 +47,7 @@ class LoginForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <TextField 
+        <TextField
           required
           fullWidth
           label="Username"
@@ -60,7 +60,7 @@ class LoginForm extends React.Component {
           onChange={this.handleInputChange}
           error={!username.isValid}
         />
-        <TextField 
+        <TextField
           required
           fullWidth
           label="Password"
@@ -73,7 +73,7 @@ class LoginForm extends React.Component {
           onChange={this.handleInputChange}
           error={!password.isValid}
         />
-        <Button 
+        <Button
           fullWidth
           variant="contained"
           type="submit"

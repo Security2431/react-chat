@@ -16,7 +16,7 @@ export default function auth(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         user: action.payload.user,
-        token: action.payload.token
+        token: action.payload.token,
       }
     case types.RECIEVE_AUTH_SUCCESS:
       return {
@@ -32,7 +32,7 @@ export default function auth(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         user: null,
-        token: ''
+        token: '',
       }
     default:
       return state

@@ -1,5 +1,5 @@
-import * as types from '../constants'
 import { combineReducers } from 'redux'
+import * as types from '../constants'
 
 const initialState = {
   isFetching: {
@@ -97,20 +97,20 @@ export const isFetching = (state = initialState.isFetching, action) => {
   }
 }
 
-export const errors = (state=initialState.errors, action) => {
-  switch(action.type) {
+export const errors = (state = initialState.errors, action) => {
+  switch (action.type) {
     case types.SIGNUP_FAILURE:
     case types.LOGIN_FAILURE:
     case types.LOGOUT_FAILURE:
     // Used for internal needs
-    //case types.RECIEVE_AUTH_FAILURE:
+    // case types.RECIEVE_AUTH_FAILURE:
       return { ...state, auth: action.payload }
 
     case types.SIGNUP_SUCCESS:
     case types.LOGIN_SUCCESS:
     case types.LOGOUT_SUCCESS:
     // Used for internal needs
-    //case types.RECIEVE_AUTH_SUCCESS:
+    // case types.RECIEVE_AUTH_SUCCESS:
       return { ...state, auth: action.null }
 
     case types.FETCH_ALL_CHATS_FAILURE:
@@ -154,5 +154,5 @@ export const isConnected = (state = initialState.isConnected, action) => {
 export default combineReducers({
   isFetching,
   errors,
-  isConnected
+  isConnected,
 })

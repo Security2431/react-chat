@@ -1,6 +1,8 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Router, Route, Switch, Redirect } from "react-router-dom"
+import {
+  Router, Route, Switch, Redirect,
+} from 'react-router-dom'
 import PrivateRoute from '../containers/PrivateRoute'
 import WelcomePage from '../containers/WelcomePage'
 import ChatPage from '../containers/ChatPage'
@@ -12,8 +14,8 @@ const styles = theme => ({
     display: 'flex',
     width: '100%',
     height: '100%',
-    backgroundColor: theme.palette.background.default
-  }
+    backgroundColor: theme.palette.background.default,
+  },
 })
 
 const App = ({ classes }) => (

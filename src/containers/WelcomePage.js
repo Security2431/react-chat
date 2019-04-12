@@ -5,16 +5,16 @@ import WelcomePage from '../components/WelcomePage'
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  error: state.services.errors.auth
+  error: state.services.errors.auth,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   signup,
   login,
-  recieveAuth
+  recieveAuth,
 }, dispatch)
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(WelcomePage)

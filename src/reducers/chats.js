@@ -1,3 +1,5 @@
+/* eslint no-use-before-define: 0 */
+/* eslint no-underscore-dangle: 0 */
 import { combineReducers } from 'redux'
 import * as types from '../constants'
 
@@ -5,7 +7,7 @@ const initialState = {
   activeId: null,
   allIds: [],
   myIds: [],
-  byIds: {}
+  byIds: {},
 }
 
 const activeId = (state = initialState.activeId, action) => {
@@ -35,7 +37,7 @@ const allIds = (state = initialState.allIds, action) => {
     case types.RECIEVE_DELETED_CHAT:
     case types.DELETE_CHAT_SUCCESS:
       return state.filter(
-        chatId => chatId !== getChatId(action.payload.chat)
+        chatId => chatId !== getChatId(action.payload.chat),
       )
     default:
       return state
@@ -53,7 +55,7 @@ const myIds = (state = initialState.myIds, action) => {
     case types.RECIEVE_DELETED_CHAT:
     case types.DELETE_CHAT_SUCCESS:
       return state.filter(
-        chatId => chatId !== getChatId(action.payload.chat)
+        chatId => chatId !== getChatId(action.payload.chat),
       )
     default:
       return state
@@ -68,8 +70,8 @@ const byIds = (state = initialState.byIds, action) => {
         ...state,
         ...action.payload.chats.reduce((ids, chat) => ({
           ...ids,
-          [getChatId(chat)]: chat
-        }), {} )
+          [getChatId(chat)]: chat,
+        }), {}),
       }
     case types.JOIN_CHAT_SUCCESS:
     case types.LEAVE_CHAT_SUCCESS:
@@ -77,26 +79,26 @@ const byIds = (state = initialState.byIds, action) => {
     case types.RECIEVE_NEW_CHAT:
       return {
         ...state,
-        [getChatId(action.payload.chat)]: action.payload.chat
+        [getChatId(action.payload.chat)]: action.payload.chat,
       }
     case types.DELETE_CHAT_SUCCESS:
-    case types.RECIEVE_DELETED_CHAT:
+    case types.RECIEVE_DELETED_CHAT: {
       const newState = { ...state }
       delete newState[getChatId(action.payload.chat)]
       return newState
+    }
     default:
       return state
   }
 }
 
-
 export default combineReducers({
   activeId,
   allIds,
   myIds,
-  byIds
+  byIds,
 })
 
-export const getChatId = (chat) => chat._id
+export const getChatId = chat => chat._id
 export const getById = (state, id) => state.byIds[id]
 export const getByIds = (state, ids) => ids.map(id => getById(state, id))

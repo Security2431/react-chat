@@ -5,24 +5,24 @@ import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
   signUpButton: {
-    marginTop: theme.spacing.unit * 2
-  }
+    marginTop: theme.spacing.unit * 2,
+  },
 })
 
 class SignupForm extends React.Component {
   state = {
     username: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     password: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     repeatedPassword: {
       value: '',
-      isValid: true
-    }
+      isValid: true,
+    },
   }
 
   validate = () => {
@@ -41,11 +41,11 @@ class SignupForm extends React.Component {
     event.persist()
     const { name, value } = event.target
 
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       [name]: {
         ...prevState[name],
-        value
-      }
+        value,
+      },
     }))
   }
 
@@ -57,7 +57,8 @@ class SignupForm extends React.Component {
     }
 
     const { username, password } = this.state
-    
+
+    // eslint-disable-next-line
     this.props.onSubmit(username.value, password.value)
   }
 
@@ -67,7 +68,7 @@ class SignupForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <TextField 
+        <TextField
           required
           fullWidth
           label="Username"
@@ -80,7 +81,7 @@ class SignupForm extends React.Component {
           onChange={this.handleInputChange}
           error={!username.isValid}
         />
-        <TextField 
+        <TextField
           required
           fullWidth
           label="Password"
@@ -93,7 +94,7 @@ class SignupForm extends React.Component {
           onChange={this.handleInputChange}
           error={!password.isValid}
         />
-        <TextField 
+        <TextField
           required
           fullWidth
           label="Repeat password"
@@ -106,7 +107,7 @@ class SignupForm extends React.Component {
           onChange={this.handleInputChange}
           error={!repeatedPassword.isValid}
         />
-        <Button 
+        <Button
           fullWidth
           variant="contained"
           type="submit"
