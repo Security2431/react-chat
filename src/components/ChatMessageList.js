@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: 0 */
+/* eslint react/jsx-one-expression-per-line:0 */
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
@@ -11,30 +13,32 @@ const styles = theme => ({
     height: '100%',
     width: '100%',
     paddingTop: theme.spacing.unit * 3,
-    paddingBottom: '120px'
+    paddingBottom: '120px',
   },
   paper: {
-    padding: theme.spacing.unit * 3
-  }
+    padding: theme.spacing.unit * 3,
+  },
 })
 
 class ChatMessageList extends React.Component {
   componentDidMount() {
     this.scrollDownHistory()
-  }  
-  
+  }
+
   componentDidUpdate() {
     this.scrollDownHistory()
   }
 
   scrollDownHistory() {
-    const messagesWrapper = this.refs.messagesWrapper
-    if (messagesWrapper) {
-      messagesWrapper.scrollTop = messagesWrapper.scrollHeight
+    if (this.messagesWrapper) {
+      this.messagesWrapper.scrollTop = this.messagesWrapper.scrollHeight
     }
   }
+
   render() {
-    const { classes, messages, match, activeUser } = this.props
+    const {
+      classes, messages, match, activeUser,
+    } = this.props
 
     // If there is no active chat, then show a tip
     if (!match.params.chatId) {
@@ -54,12 +58,12 @@ class ChatMessageList extends React.Component {
     }
 
     return messages && messages.length ? (
-      <div className={classes.messagesWrapper} ref="messagesWrapper">
-        {messages.map((message, index) => (
-          <ChatMessage 
-            key={index} 
+      <div className={classes.messagesWrapper}>
+        {messages.map(message => (
+          <ChatMessage
+            key={message._id}
             activeUser={activeUser}
-            {...message} 
+            {...message}
           />
         ))}
       </div>

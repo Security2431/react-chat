@@ -15,7 +15,7 @@ const render = (Component) => {
     <Provider store={store}>
       <Component />
     </Provider>,
-    rootEl
+    rootEl,
   )
 }
 

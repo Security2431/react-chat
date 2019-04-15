@@ -20,7 +20,7 @@ const styles = theme => ({
     width: '30%',
     minWidth: '300px',
     padding: theme.spacing.unit * 3,
-  }
+  },
 })
 
 class UserMenu extends React.Component {
@@ -55,30 +55,36 @@ class UserMenu extends React.Component {
   }
 
   toggleEditProfileModal = () => {
+    // eslint-disable-next-line
     this.setState({ isModalOpen: !this.state.isModalOpen })
     this.handleClose()
   }
 
   handleSaveClick = () => {
+    const { username, firstName, lastName } = this.state
+    // eslint-disable-next-line
     this.props.onEditProfileClick({
-      username: this.state.username,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
+      username,
+      firstName,
+      lastName,
     })
     this.toggleEditProfileModal()
   }
 
   handleLogoutClick = () => {
+    // eslint-disable-next-line
     this.props.onLogoutClick()
     this.handleClose()
   }
 
   render() {
-    const { anchorEl, isModalOpen } = this.state
+    const {
+      anchorEl, isModalOpen, username, firstName, lastName,
+    } = this.state
     const { classes, disabled } = this.props
 
     return (
-      <>
+      <React.Fragment>
         <IconButton
           color="inherit"
           aria-owns={anchorEl ? 'simple-menu' : null}
@@ -114,7 +120,7 @@ class UserMenu extends React.Component {
               placeholder="Enter your username..."
               type="text"
               margin="normal"
-              value={this.state.username}
+              value={username}
               onChange={this.handleInputChange}
             />
             <TextField
@@ -124,7 +130,7 @@ class UserMenu extends React.Component {
               placeholder="Enter your first name..."
               type="text"
               margin="normal"
-              value={this.state.firstName}
+              value={firstName}
               onChange={this.handleInputChange}
             />
             <TextField
@@ -134,7 +140,7 @@ class UserMenu extends React.Component {
               placeholder="Enter your last name..."
               type="text"
               margin="normal"
-              value={this.state.lastName}
+              value={lastName}
               onChange={this.handleInputChange}
             />
             <Button color="primary" onClick={this.handleSaveClick}>
@@ -145,10 +151,9 @@ class UserMenu extends React.Component {
             </Button>
           </Paper>
         </Modal>
-      </>
+      </React.Fragment>
     )
   }
-
 }
 
 export default withStyles(styles)(UserMenu)

@@ -10,12 +10,12 @@ const styles = theme => ({
     left: 'auto',
     right: 0,
     bottom: 0,
-    width: `calc(100% - 320px)`,
-    padding: theme.spacing.unit * 3
+    width: 'calc(100% - 320px)',
+    padding: theme.spacing.unit * 3,
   },
   messageInput: {
-    padding: theme.spacing.unit * 2
-  }
+    padding: theme.spacing.unit * 2,
+  },
 })
 
 class MessageInput extends React.Component {
@@ -29,17 +29,22 @@ class MessageInput extends React.Component {
     })
   }
 
-  handleKeyPress = (event) =>{
+  handleKeyPress = (event) => {
     const { value } = this.state
 
     if (event.key === 'Enter' && value) {
+      // eslint-disable-next-line
       this.props.sendMessage(value)
       this.setState({ value: '' })
     }
   }
 
   render() {
-    const { classes, showJoinButton, onJoinButtonClick, disabled } = this.props
+    const {
+      classes, showJoinButton, onJoinButtonClick, disabled,
+    } = this.props
+    
+    const { value } = this.state
 
     return (
       <div className={classes.messageInputWrapper}>
@@ -59,7 +64,7 @@ class MessageInput extends React.Component {
               fullWidth
               placeholder="Type your message..."
               disabled={disabled}
-              value={this.state.value}
+              value={value}
               onChange={this.handleValueChange}
               onKeyPress={this.handleKeyPress}
             />

@@ -1,7 +1,6 @@
 import * as types from '../constants/auth'
 import callApi from '../utils/call-api'
 
-
 export function signup(username, password) {
   return (dispatch, getState) => {
     const { isFetching } = getState().services
@@ -11,29 +10,29 @@ export function signup(username, password) {
     }
 
     dispatch({
-      type: types.SIGNUP_REQUEST
+      type: types.SIGNUP_REQUEST,
     })
 
-    return callApi('/signup', undefined, { method: "POST" }, {
+    return callApi('/signup', undefined, { method: 'POST' }, {
       username,
-      password
+      password,
     })
-      .then(json => {
-        if(!json.token) {
+      .then((json) => {
+        if (!json.token) {
           throw new Error('Token has not been provided!')
         }
-        
+
         // save JWT to localStorage
         localStorage.setItem('token', json.token)
 
         dispatch({
           type: types.SIGNUP_SUCCESS,
-          payload: json
+          payload: json,
         })
       })
       .catch(reason => dispatch({
         type: types.SIGNUP_FAILURE,
-        payload: reason
+        payload: reason,
       }))
   }
 }
@@ -47,29 +46,29 @@ export function login(username, password) {
     }
 
     dispatch({
-      type: types.LOGIN_REQUEST
+      type: types.LOGIN_REQUEST,
     })
 
-    return callApi('/login', undefined, { method: "POST" }, {
+    return callApi('/login', undefined, { method: 'POST' }, {
       username,
-      password
+      password,
     })
-      .then(json => {
-        if(!json.token) {
+      .then((json) => {
+        if (!json.token) {
           throw new Error('Token has not been provided!')
         }
-        
+
         // save JWT to localStorage
         localStorage.setItem('token', json.token)
 
         dispatch({
           type: types.LOGIN_SUCCESS,
-          payload: json
+          payload: json,
         })
       })
       .catch(reason => dispatch({
         type: types.LOGIN_FAILURE,
-        payload: reason
+        payload: reason,
       }))
   }
 }
@@ -83,18 +82,18 @@ export function logout() {
     }
 
     dispatch({
-      type: types.LOGOUT_REQUEST
+      type: types.LOGOUT_REQUEST,
     })
 
     return callApi('/logout')
-      .then(json => {
+      .then((json) => {
         // Remove JWT from localStorage
         localStorage.removeItem('token')
 
         // Redirect to welcome in case of failure
         dispatch({
           type: types.LOGOUT_SUCCESS,
-          payload: json
+          payload: json,
         })
       })
       .catch(reason => dispatch({
@@ -115,17 +114,17 @@ export function recieveAuth() {
     }
 
     dispatch({
-      type: types.RECIEVE_AUTH_REQUEST
+      type: types.RECIEVE_AUTH_REQUEST,
     })
-    
+
     return callApi('/users/me', token)
       .then(json => dispatch({
         type: types.RECIEVE_AUTH_SUCCESS,
-        payload: json
+        payload: json,
       }))
       .catch(reason => dispatch({
         type: types.RECIEVE_AUTH_FAILURE,
-        payload: reason
+        payload: reason,
       }))
   }
 }

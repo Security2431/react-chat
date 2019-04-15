@@ -23,7 +23,7 @@ const styles = theme => ({
     width: '30%',
     minWidth: '300px',
     padding: theme.spacing.unit * 3,
-  }
+  },
 })
 
 class NewChatButton extends React.Component {
@@ -32,10 +32,11 @@ class NewChatButton extends React.Component {
     title: {
       value: '',
       isValid: true,
-    }
+    },
   }
 
   toggleModal = () => {
+    // eslint-disable-next-line
     this.setState({ open: !this.state.open })
   }
 
@@ -44,7 +45,7 @@ class NewChatButton extends React.Component {
       title: {
         value: event.target.value,
         isValid: true,
-      }
+      },
     })
   }
 
@@ -58,19 +59,20 @@ class NewChatButton extends React.Component {
         title: {
           value: title.value,
           isValid: false,
-        }
+        },
       })
 
       return
     }
 
+    // eslint-disable-next-line
     this.props.onClick(title.value)
     this.toggleModal()
     this.setState({
       title: {
         value: '',
         isValid: true,
-      }
+      },
     })
   }
 
@@ -79,7 +81,7 @@ class NewChatButton extends React.Component {
     const { open, title } = this.state
 
     return (
-      <>
+      <React.Fragment>
         <Button
           variant="fab"
           color="primary"
@@ -116,11 +118,11 @@ class NewChatButton extends React.Component {
             >
               Create
             </Button>
-          </Paper>       
+          </Paper>
         </Modal>
-      </>
+      </React.Fragment>
     )
   }
 }
 
-export default withStyles(styles)(NewChatButton);
+export default withStyles(styles)(NewChatButton)

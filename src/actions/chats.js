@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import * as types from '../constants/chats'
 import callApi from '../utils/call-api'
 import { redirect } from './services'
@@ -13,17 +14,17 @@ export function fetchAllChats() {
     }
 
     dispatch({
-      type: types.FETCH_ALL_CHATS_REQUEST
+      type: types.FETCH_ALL_CHATS_REQUEST,
     })
 
     return callApi('/chats', token)
       .then(data => dispatch({
         type: types.FETCH_ALL_CHATS_SUCCESS,
-        payload: data
+        payload: data,
       }))
       .catch(reason => dispatch({
         type: types.FETCH_ALL_CHATS_FAILURE,
-        payload: reason
+        payload: reason,
       }))
   }
 }
@@ -38,17 +39,17 @@ export function fetchMyChats() {
       return Promise.resolve()
     }
     dispatch({
-      type: types.FETCH_MY_CHATS_REQUEST
+      type: types.FETCH_MY_CHATS_REQUEST,
     })
 
     return callApi('/chats/my', token)
       .then(data => dispatch({
         type: types.FETCH_MY_CHATS_SUCCESS,
-        payload: data
+        payload: data,
       }))
       .catch(reason => dispatch({
         type: types.FETCH_MY_CHATS_FAILURE,
-        payload: reason
+        payload: reason,
       }))
   }
 }
@@ -64,22 +65,22 @@ export function fetchChat(chatId) {
     }
 
     dispatch({
-      type: types.FETCH_CHAT_REQUEST
+      type: types.FETCH_CHAT_REQUEST,
     })
 
     return callApi(`/chats/${chatId}`, token)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: types.FETCH_CHAT_SUCCESS,
-          payload: data
+          payload: data,
         })
 
         return data
       })
-      .catch(reason => {
+      .catch((reason) => {
         dispatch({
           type: types.FETCH_CHAT_FAILURE,
-          payload: reason
+          payload: reason,
         })
 
         dispatch(redirect('/chat'))
@@ -88,25 +89,23 @@ export function fetchChat(chatId) {
 }
 
 export function setActiveChat(chatId) {
-  return (dispatch) => {
-    return dispatch(fetchChat(chatId))
-      .then(data => {
-        if (!data) {
-          dispatch(redirect('/chat'))
+  return dispatch => dispatch(fetchChat(chatId))
+    .then((data) => {
+      if (!data) {
+        dispatch(redirect('/chat'))
 
-          return dispatch({
-            type: types.UNSET_ACTIVE_CHAT
-          })
-        }
-
-        dispatch({
-          type: types.SET_ACTIVE_CHAT,
-          payload: data
+        return dispatch({
+          type: types.UNSET_ACTIVE_CHAT,
         })
+      }
 
-        dispatch(redirect(`/chat/${data.chat._id}`))
+      dispatch({
+        type: types.SET_ACTIVE_CHAT,
+        payload: data,
       })
-  }
+
+      return dispatch(redirect(`/chat/${data.chat._id}`))
+    })
 }
 
 export function createChat(title) {
@@ -125,12 +124,12 @@ export function createChat(title) {
     })
 
     return callApi('/chats', token, { method: 'POST' }, {
-      data: { title }
+      data: { title },
     })
       .then(({ chat }) => {
         dispatch({
           type: types.CREATE_CHAT_SUCCESS,
-          payload: { chat }
+          payload: { chat },
         })
 
         dispatch(redirect(`/chat/${chat._id}`))
@@ -193,7 +192,7 @@ export function leaveChat(chatId) {
     })
 
     return callApi(`/chats/${chatId}/leave`, token)
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: types.LEAVE_CHAT_SUCCESS,
           payload: data,
@@ -226,11 +225,11 @@ export function deleteChat(chatId) {
 
     dispatch({
       type: types.DELETE_CHAT_REQUEST,
-      payload: { chatId }
+      payload: { chatId },
     })
 
     return callApi(`/chats/${chatId}`, token, { method: 'DELETE' })
-      .then(data => {
+      .then((data) => {
         dispatch({
           type: types.DELETE_CHAT_SUCCESS,
           payload: data,
@@ -239,7 +238,7 @@ export function deleteChat(chatId) {
         dispatch(redirect('/chat'))
 
         dispatch({
-          type: types.UNSET_ACTIVE_CHAT
+          type: types.UNSET_ACTIVE_CHAT,
         })
 
         return data
@@ -250,4 +249,3 @@ export function deleteChat(chatId) {
       }))
   }
 }
-

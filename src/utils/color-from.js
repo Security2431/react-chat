@@ -14,7 +14,7 @@ import blueGrey from '@material-ui/core/colors/blueGrey'
 
 const colors = [
   red, pink, purple, indigo, blue, teal, green, lightGreen, amber,
-  orange, deepOrange, deepPurple, blueGrey
+  orange, deepOrange, deepPurple, blueGrey,
 ]
 
 export default function colorFrom(string) {
@@ -24,7 +24,7 @@ export default function colorFrom(string) {
       .split('')
       .map(char => char.charCodeAt())
       .reduce((sum, num) => sum + num, 0)
-  
+
     const colorIndex = index % colors.length
 
     return colors[colorIndex][500]
@@ -32,6 +32,4 @@ export default function colorFrom(string) {
     console.error(e)
     return blueGrey[500]
   }
-  
 }
-

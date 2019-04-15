@@ -8,30 +8,31 @@ class ErrorMessage extends React.Component {
     open: false,
   }
 
-  handleCloseSnackbar = (event, reason) => {
-    this.setState({ open: false })
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.error) {
       this.setState({ open: true })
     }
   }
 
+  handleCloseSnackbar = () => {
+    this.setState({ open: false })
+  }
+
   render() {
     const { error } = this.props
-    
+    const { open } = this.state
+
     if (!error) {
       return null
     }
-    
+
     return (
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
-        open={this.state.open}
+        open={open}
         autoHideDuration={6000}
         onClose={this.handleCloseSnackbar}
         message={<span id="message-id">{error.message}</span>}

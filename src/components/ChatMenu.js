@@ -19,11 +19,13 @@ class ChatMenu extends React.Component {
 
   handleLeaveClick = () => {
     this.handleClose()
+    // eslint-disable-next-line
     this.props.onLeaveClick()
   }
 
   handleDeleteClick = () => {
     this.handleClose()
+    // eslint-disable-next-line
     this.props.onDeleteClick()
   }
 
@@ -36,7 +38,7 @@ class ChatMenu extends React.Component {
     }
 
     return (
-      <>
+      <React.Fragment>
         <IconButton
           color="inherit"
           aria-owns={anchorEl ? 'simple-menu' : null}
@@ -55,7 +57,7 @@ class ChatMenu extends React.Component {
           {activeUser.isMember && <MenuItem onClick={this.handleLeaveClick}>Leave</MenuItem>}
           {activeUser.isCreator && <MenuItem onClick={this.handleDeleteClick}>Delete</MenuItem>}
         </Menu>
-      </>
+      </React.Fragment>
     )
   }
 }
