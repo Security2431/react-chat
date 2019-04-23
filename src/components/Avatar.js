@@ -6,7 +6,7 @@ import titleInitials from '../utils/title-initials'
 
 const Avatar = ({ colorFrom, children, ...rest }) => (
   <MUIAvatar style={{ backgroundColor: getColor(colorFrom) }} {...rest}>
-    { titleInitials(children) }
+    {titleInitials(children)}
   </MUIAvatar>
 )
 

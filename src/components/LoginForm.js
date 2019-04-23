@@ -89,7 +89,6 @@ class LoginForm extends React.Component {
           Login
         </Button>
       </form>
-
     )
   }
 }

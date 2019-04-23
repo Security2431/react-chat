@@ -123,7 +123,6 @@ class SignupForm extends React.Component {
           Signup
         </Button>
       </form>
-
     )
   }
 }

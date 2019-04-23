@@ -57,9 +57,7 @@ class Sidebar extends React.Component {
     const { searchValue } = this.state
 
     return chats
-      .filter(chat => chat.title
-        .toLowerCase()
-        .includes(searchValue.toLowerCase()))
+      .filter(chat => chat.title.toLowerCase().includes(searchValue.toLowerCase()))
       .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1))
   }
 
@@ -91,15 +89,8 @@ class Sidebar extends React.Component {
           chats={this.filterChats(activeTab === 0 ? chats.my : chats.all)}
           activeChat={chats.active}
         />
-        <NewChatButton
-          disabled={!isConnected}
-          onClick={createChat}
-        />
-        <BottomNavigation
-          value={activeTab}
-          onChange={this.handleTabChange}
-          showLabels
-        >
+        <NewChatButton disabled={!isConnected} onClick={createChat} />
+        <BottomNavigation value={activeTab} onChange={this.handleTabChange} showLabels>
           <BottomNavigationAction label="My Chats" icon={<RestoreIcon />} />
           <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
         </BottomNavigation>

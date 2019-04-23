@@ -24,12 +24,14 @@ const styles = theme => ({
 class ChatMessageList extends React.Component {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
-    messages: PropTypes.arrayOf(PropTypes.shape({
-      chatId: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      sender: PropTypes.object.isRequired,
-      createdAt: PropTypes.string.isRequired,
-    })).isRequired,
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        chatId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        sender: PropTypes.object.isRequired,
+        createdAt: PropTypes.string.isRequired,
+      }),
+    ),
     match: PropTypes.shape({
       params: PropTypes.object.isRequired,
     }).isRequired,
@@ -41,6 +43,10 @@ class ChatMessageList extends React.Component {
       isCreator: PropTypes.bool.isRequired,
       isChatMember: PropTypes.bool.isRequired,
     }).isRequired,
+  }
+
+  static defaultProps = {
+    messages: [],
   }
 
   componentDidMount() {
@@ -82,17 +88,11 @@ class ChatMessageList extends React.Component {
     return messages && messages.length ? (
       <div className={classes.messagesWrapper}>
         {messages.map(message => (
-          <ChatMessage
-            key={message._id}
-            activeUser={activeUser}
-            {...message}
-          />
+          <ChatMessage key={message._id} activeUser={activeUser} {...message} />
         ))}
       </div>
     ) : (
-      <Typography variant="display1">
-        There is no messages yet...
-      </Typography>
+      <Typography variant="display1">There is no messages yet...</Typography>
     )
   }
 }

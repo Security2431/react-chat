@@ -35,12 +35,14 @@ class ChatPage extends React.Component {
     leaveChat: PropTypes.func.isRequired,
     deleteChat: PropTypes.func.isRequired,
     sendMessage: PropTypes.func.isRequired,
-    messages: PropTypes.arrayOf(PropTypes.shape({
-      chatId: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      sender: PropTypes.object.isRequired,
-      createdAt: PropTypes.string.isRequired,
-    })).isRequired,
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        chatId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        sender: PropTypes.object.isRequired,
+        createdAt: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
     editUser: PropTypes.func.isRequired,
     error: PropTypes.instanceOf(Error),
     isConnected: PropTypes.bool.isRequired,
@@ -52,13 +54,15 @@ class ChatPage extends React.Component {
 
   componentDidMount() {
     const {
-      match, fetchAllChats, fetchMyChats, setActiveChat, socketsConnect, mountChat,
+      match,
+      fetchAllChats,
+      fetchMyChats,
+      setActiveChat,
+      socketsConnect,
+      mountChat,
     } = this.props
 
-    Promise.all([
-      fetchAllChats(),
-      fetchMyChats(),
-    ])
+    Promise.all([fetchAllChats(), fetchMyChats()])
       .then(() => {
         socketsConnect()
       })
@@ -75,7 +79,10 @@ class ChatPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      match: { params }, setActiveChat, unmountChat, mountChat,
+      match: { params },
+      setActiveChat,
+      unmountChat,
+      mountChat,
     } = this.props
     const { params: nextParams } = nextProps.match
 
@@ -89,9 +96,18 @@ class ChatPage extends React.Component {
 
   render() {
     const {
-      logout, chats, activeUser,
-      createChat, joinChat, leaveChat, deleteChat, sendMessage,
-      messages, editUser, error, isConnected,
+      logout,
+      chats,
+      activeUser,
+      createChat,
+      joinChat,
+      leaveChat,
+      deleteChat,
+      sendMessage,
+      messages,
+      editUser,
+      error,
+      isConnected,
     } = this.props
 
     return (
@@ -105,11 +121,7 @@ class ChatPage extends React.Component {
           logout={logout}
           editUser={editUser}
         />
-        <Sidebar
-          isConnected={isConnected}
-          chats={chats}
-          createChat={createChat}
-        />
+        <Sidebar isConnected={isConnected} chats={chats} createChat={createChat} />
         <Chat
           isConnected={isConnected}
           messages={messages}

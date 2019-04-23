@@ -159,9 +159,7 @@ class UserMenu extends React.Component {
             <Button color="primary" onClick={this.handleSaveClick}>
               Save
             </Button>
-            <Button onClick={this.toggleEditProfileModal}>
-              Close
-            </Button>
+            <Button onClick={this.toggleEditProfileModal}>Close</Button>
           </Paper>
         </Modal>
       </React.Fragment>

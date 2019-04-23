@@ -18,34 +18,39 @@ const styles = () => ({
 })
 
 const Chat = ({
-  classes, messages, activeChat, activeUser, joinChat, sendMessage, isConnected,
+  classes,
+  messages,
+  activeChat,
+  activeUser,
+  joinChat,
+  sendMessage,
+  isConnected,
 }) => (
   <main className={classes.chatLayout}>
-    <ChatMessageList
-      messages={messages}
-      activeUser={activeUser}
-    />
+    <ChatMessageList messages={messages} activeUser={activeUser} />
     {activeChat && (
-    <MessageInput
-      disabled={!isConnected}
-      sendMessage={sendMessage}
-      showJoinButton={!activeUser.isChatMember}
-      // eslint-disable-next-line
-      onJoinButtonClick={() => joinChat(activeChat._id)}
-      activeUser={activeUser}
-    />
+      <MessageInput
+        disabled={!isConnected}
+        sendMessage={sendMessage}
+        showJoinButton={!activeUser.isChatMember}
+        // eslint-disable-next-line
+        onJoinButtonClick={() => joinChat(activeChat._id)}
+        activeUser={activeUser}
+      />
     )}
   </main>
 )
 
 Chat.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  messages: PropTypes.arrayOf(PropTypes.shape({
-    chatId: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired,
-    sender: PropTypes.object.isRequired,
-    createdAt: PropTypes.string.isRequired,
-  })).isRequired,
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      chatId: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      sender: PropTypes.object.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   activeChat: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
