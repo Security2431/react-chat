@@ -3,7 +3,6 @@ import SocketIOClient from 'socket.io-client'
 import * as types from '../constants/sockets'
 import { redirect } from './services'
 
-
 export function missingSocketConnection() {
   return {
     types: types.SOCKETS_CONNECTION_MISSING,
@@ -90,18 +89,22 @@ export function sendMessage(content) {
       dispatch(missingSocketConnection())
     }
 
-    socket.emit('send-message', {
-      chatId: activeId,
-      content,
-    }, () => {
-      dispatch({
-        type: types.SEND_MESSAGE,
-        payload: {
-          chatId: activeId,
-          content,
-        },
-      })
-    })
+    socket.emit(
+      'send-message',
+      {
+        chatId: activeId,
+        content,
+      },
+      () => {
+        dispatch({
+          type: types.SEND_MESSAGE,
+          payload: {
+            chatId: activeId,
+            content,
+          },
+        })
+      },
+    )
   }
 }
 

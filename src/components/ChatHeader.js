@@ -1,5 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React from 'react'
+import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -23,15 +24,20 @@ const styles = theme => ({
 })
 
 const ChatHeader = ({
-  classes, activeUser, activeChat, logout, leaveChat, deleteChat, editUser, isConnected,
+  classes,
+  activeUser,
+  activeChat,
+  logout,
+  leaveChat,
+  deleteChat,
+  editUser,
+  isConnected,
 }) => (
   <AppBar color="primary" className={classes.appBar}>
     <Toolbar color="contrast">
-      { activeChat ? (
+      {activeChat ? (
         <React.Fragment>
-          <Avatar colorFrom={activeChat._id}>
-            {activeChat.title}
-          </Avatar>
+          <Avatar colorFrom={activeChat._id}>{activeChat.title}</Avatar>
           <Typography variant="title" className={classes.appBarTitle}>
             {activeChat.title}
             <ChatMenu
@@ -56,5 +62,27 @@ const ChatHeader = ({
     </Toolbar>
   </AppBar>
 )
+
+ChatHeader.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  activeUser: PropTypes.shape({
+    isMember: PropTypes.bool.isRequired,
+    isCreator: PropTypes.bool.isRequired,
+    isChatMember: PropTypes.bool.isRequired,
+  }).isRequired,
+  activeChat: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
+  logout: PropTypes.func.isRequired,
+  leaveChat: PropTypes.func.isRequired,
+  deleteChat: PropTypes.func.isRequired,
+  editUser: PropTypes.func.isRequired,
+  isConnected: PropTypes.bool.isRequired,
+}
+
+ChatHeader.defaultProps = {
+  activeChat: null,
+}
 
 export default withStyles(styles)(ChatHeader)

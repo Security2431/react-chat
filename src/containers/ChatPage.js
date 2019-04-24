@@ -2,7 +2,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { logout } from '../actions/auth'
 import {
-  fetchAllChats, fetchMyChats, setActiveChat, createChat, deleteChat, joinChat, leaveChat,
+  fetchAllChats,
+  fetchMyChats,
+  setActiveChat,
+  createChat,
+  deleteChat,
+  joinChat,
+  leaveChat,
 } from '../actions/chats'
 import { editUser } from '../actions/users'
 import {
@@ -34,21 +40,24 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchAllChats,
-  fetchMyChats,
-  setActiveChat,
-  logout,
-  createChat,
-  deleteChat,
-  joinChat,
-  leaveChat,
-  editUser,
-  sendMessage,
-  mountChat,
-  unmountChat,
-  socketsConnect,
-}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    fetchAllChats,
+    fetchMyChats,
+    setActiveChat,
+    logout,
+    createChat,
+    deleteChat,
+    joinChat,
+    leaveChat,
+    editUser,
+    sendMessage,
+    mountChat,
+    unmountChat,
+    socketsConnect,
+  },
+  dispatch,
+)
 
 export default connect(
   mapStateToProps,

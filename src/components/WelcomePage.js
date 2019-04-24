@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
@@ -23,6 +24,19 @@ const styles = theme => ({
 })
 
 class WelcomePage extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    signup: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    recieveAuth: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    error: PropTypes.instanceOf(Error),
+  }
+
+  static defaultProps = {
+    error: null,
+  }
+
   state = {
     activeTab: 0,
   }
@@ -43,9 +57,7 @@ class WelcomePage extends React.Component {
     const { activeTab } = this.state
 
     if (isAuthenticated) {
-      return (
-        <Redirect to="/chat" />
-      )
+      return <Redirect to="/chat" />
     }
 
     return (
@@ -53,7 +65,7 @@ class WelcomePage extends React.Component {
         <AppBar>
           <Toolbar>
             <Typography variant="title" color="inherit" style={{ flex: 1 }}>
-            DogeCodes React Chat
+              DogeCodes React Chat
             </Typography>
           </Toolbar>
         </AppBar>
@@ -61,11 +73,7 @@ class WelcomePage extends React.Component {
           <Grid item>
             <Paper className={classes.paper}>
               <AppBar position="static" color="default">
-                <Tabs
-                  value={activeTab}
-                  onChange={this.handleTabChange}
-                  variant="fullWidth"
-                >
+                <Tabs value={activeTab} onChange={this.handleTabChange} variant="fullWidth">
                   <Tab label="Login" />
                   <Tab label="Sign Up" />
                 </Tabs>

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import {
   Router, Route, Switch, Redirect,
@@ -29,5 +30,9 @@ const App = ({ classes }) => (
     </div>
   </Router>
 )
+
+App.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+}
 
 export default withStyles(styles)(App)

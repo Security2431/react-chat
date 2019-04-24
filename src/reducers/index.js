@@ -4,7 +4,6 @@ import chats from './chats'
 import messages from './messages'
 import services from './services'
 
-
 export default combineReducers({
   auth,
   chats,
@@ -24,12 +23,9 @@ export const isCreator = (state, chat) => {
   }
 }
 
-
 export const isMember = (state, chat) => {
   try {
-    return chat.members.some(
-      member => getUserId(member) === getUserId(getActiveUser(state)),
-    )
+    return chat.members.some(member => getUserId(member) === getUserId(getActiveUser(state)))
   } catch (e) {
     return false
   }
