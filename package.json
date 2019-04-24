@@ -31,7 +31,8 @@
     "lint": "eslint './src/**/*.js'",
     "lint:fix": "yarn run lint --fix",
     "format": "yarn run prettier-eslint --write '**/*.{js,json}'",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "prepush": "yarn run test"
   },
   "browserslist": [
     ">0.2%",
@@ -53,7 +54,6 @@
   },
   "lint-staged": {
     "**/*.js": [
-      "yarn run lint:fix",
       "yarn run format",
       "git add"
     ],
