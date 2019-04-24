@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import Modal from '@material-ui/core/Modal'
 import Typography from '@material-ui/core/Typography'
@@ -89,15 +90,14 @@ class NewChatButton extends React.Component {
 
     return (
       <React.Fragment>
-        <Button
-          variant="fab"
+        <Fab
           color="primary"
           disabled={disabled}
           className={classes.newChatButton}
           onClick={this.toggleModal}
         >
           <AddIcon />
-        </Button>
+        </Fab>
         <Modal open={open} className={classes.modalWrapper} onClose={this.toggleModal}>
           <Paper className={classes.modal}>
             <Typography variant="title" id="modal-title">
