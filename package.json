@@ -28,9 +28,9 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "lint": "eslint './src/**/*.js'",
+    "lint": "eslint \"src/**/*.js\"",
     "lint:fix": "yarn run lint --fix",
-    "format": "yarn run prettier-eslint --write '**/*.{js,json}'",
+    "format": "prettier-eslint --write \"**/*.{js,json}\"",
     "precommit": "lint-staged",
     "prepush": "yarn run test"
   },
@@ -42,7 +42,7 @@
   ],
   "devDependencies": {
     "babel-eslint": "^9.0.0",
-    "eslint": "5.6.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
@@ -54,6 +54,7 @@
   },
   "lint-staged": {
     "**/*.js": [
+      "yarn run lint:fix",
       "yarn run format",
       "git add"
     ],
